@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        Beautiful and Simple Website -- AWS EC2 
+    </title>
+    <style>
+        body{
+            background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1))
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <h3 align="centre">
+        <font face="Lato" size="6">AWS</font>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--HERE .&nbsp adds spaces-->
+        <font face=""cinzel">
+            <a href="#">HOME</a>
+            <a href="#">VIDEOS</a>
+            <a href="#">BLOG</a>
+            <a href="#">HOME</a>
+            <a href="contact.html">CONTACT US</a>
+        </font>
+    </h3>
+    <br /><br /><br /><br /><br /><br /><br /><br />
+    <h1 align="centre">
+        <font face="lato" color="#017bf5" size="7">
+            Beutiful and Simple Website -- AWS EC2
+        </font>
+    </h1>
+    <h3 align="center">
+        <font face="lato" color="#000" size="5">
+            Listening requests from user
+        </font>
+    </h3>
+    <br />
+    <h3 align="center">
+    <a href="#">
+        <font face="lato" color="#000">GET STARTED</font>
+    </a>
+    </h3>
+
+<div>
+    Blog:
+</div>
+<textarea id="text"></textarea>
+<button id="send" onclick="send()">send comment</button>
+<div id="comments"></div>
+<script>
+// if you want to run in locally change _url = "127.0.0.1"
+const text_input = document.querySelector("#text")
+const comments = document.querySelector("#comments")
+const _url = location.href
+get_all()
+function send(){
+let data = text_input.value
+fetch(_url + "add", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+})
+get_all()
+}
+function get_all(){
+comments.innerHTML = ""
+fetch(_url + "get-all")
+.then(data=> data.json())
+.then(res=>{
+
+res.map(comment=>{
+let c = document.createElement('div')
+c.innerHTML = comment
+comments.append(c)
+})
+})
+}
+</script>
+</body>
+</html>
